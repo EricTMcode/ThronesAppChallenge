@@ -21,16 +21,14 @@ class HousesViewModel: ObservableObject {
         }
         do {
             let (data, _) = try await URLSession.shared.data(from: url)
-             // Try to decode JSON data into our own data structures
-            do {
-                self.houses = try JSONDecoder().decode([House].self, from: data)
-                print("😎 JSON returned! # of Houses: \(self.houses.count)")
-            } catch {
-                print("😡 JSON ERROR: Could not decode returned JSON data")
+            guard let houses = try? JSONDecoder().decode([House].self, from: data) else {
+                print("😡 JSON ERROR: Could not decode returned JSON data.")
+                return
             }
+            self.houses = houses
+            print("😎 JSON Returned! # of Houses: \(houses.count)")
         } catch {
             print("😡 ERROR: Could not get data from \(urlString)")
         }
     }
-    
 }
