@@ -12,14 +12,22 @@ struct ListView: View {
     
     var body: some View {
         NavigationStack {
-            List(housesVM.houses) { house in
-                Text(house.name)
-                    .font(.title2)
-            }
-            .listStyle(.plain)
-            .navigationTitle("Houses of Westeros")
-            .task {
-                await housesVM.getData()
+            ZStack {
+                List(housesVM.houses) { house in
+                    Text(house.name)
+                        .font(.title2)
+                }
+                .listStyle(.plain)
+                .navigationTitle("Houses of Westeros")
+                .task {
+                    await housesVM.getData()
+                }
+                
+                if housesVM.isLoading {
+                    ProgressView()
+                        .scaleEffect(4)
+                        .tint(.red)
+                }
             }
         }
     }
