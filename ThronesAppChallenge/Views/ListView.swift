@@ -14,17 +14,28 @@ struct ListView: View {
         NavigationStack {
             ZStack {
                 List(housesVM.houses) { house in
-                    Text(house.name)
-                        .font(.title2)
+                    LazyVStack(alignment: .leading) {
+                        Text(house.name)
+                            .font(.title2)
+                    }
+                    .onAppear {
+                        Task {
+                            await housesVM.loadNextIfNeeded(house: house)
+                        }
+                    }
                 }
                 .listStyle(.plain)
                 .navigationTitle("Houses of Westeros")
-                .task {
-                    await housesVM.getData()
-                }
                 .toolbar {
                     ToolbarItem(placement: .status) {
                         Text("\(housesVM.houses.count) Houses Returned")
+                    }
+                    ToolbarItem(placement: .bottomBar) {
+                        Button("Load All") {
+                            Task {
+                                await housesVM.loadAll()
+                            }
+                        }
                     }
                 }
                 
@@ -34,6 +45,9 @@ struct ListView: View {
                         .tint(.red)
                 }
             }
+        }
+        .task {
+            await housesVM.getData()
         }
     }
 }
