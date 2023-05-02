@@ -62,7 +62,7 @@ class HousesViewModel: ObservableObject {
     
     func loadAll() async {
         guard pageNumber != 0 else { return }
-        await getData()
-        await loadAll()
+        await getData() // Get next page of data
+        await loadAll() // Call loadAll again - Will stop when all pages are retrieved
     }
 }
