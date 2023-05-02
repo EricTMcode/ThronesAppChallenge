@@ -8,16 +8,19 @@
 import SwiftUI
 
 struct ListView: View {
-    let houses = ["Targaryen", "Lannister", "Stark", "Martell", "Greyjoy"]
+    @StateObject var housesVM = HousesViewModel()
     
     var body: some View {
         NavigationStack {
-            List(houses, id: \.self) { house in
-                Text(house)
+            List(housesVM.houses) { house in
+                Text(house.name)
                     .font(.title2)
             }
             .listStyle(.plain)
             .navigationTitle("Houses of Westeros")
+            .task {
+                await housesVM.getData()
+            }
         }
     }
 }
