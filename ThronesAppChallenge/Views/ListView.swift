@@ -22,6 +22,11 @@ struct ListView: View {
                 .task {
                     await housesVM.getData()
                 }
+                .toolbar {
+                    ToolbarItem(placement: .status) {
+                        Text("\(housesVM.houses.count) Houses Returned")
+                    }
+                }
                 
                 if housesVM.isLoading {
                     ProgressView()
