@@ -15,8 +15,12 @@ struct ListView: View {
             ZStack {
                 List(housesVM.houses) { house in
                     LazyVStack(alignment: .leading) {
-                        Text(house.name)
-                            .font(.title2)
+                        NavigationLink {
+                            DetailView(house: house)
+                        } label: {
+                            Text(house.name)
+                                .font(.title2)
+                        }
                     }
                     .onAppear {
                         Task {
