@@ -16,4 +16,6 @@ struct House: Codable, Identifiable {
     enum CodingKeys: CodingKey {
         case name, url, words
     }
+    
+    static let example = House(name: "House Swift", url: "xxxx", words: "Our Code is True")
 }
