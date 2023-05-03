@@ -74,3 +74,6 @@ When pressed, this should load all of the pages of JSON
 - If a house has words, they are enclosed in double-quotes If a house has no words, then "n/a" is displayed The Words are italicized
 - The elements on the DetailView show up aligned to the upper-left of the screen.
 - The elements on DetailView are in Title font
+
+#### By John Gallaugher
+https://bit.ly/prof-g-swiftui
